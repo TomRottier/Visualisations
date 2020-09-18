@@ -60,6 +60,7 @@ function mousePressed() {
 
 function keyPressed() {
     if (keyCode === 82) {
+        // Pressing 'R' key resets image
         x0 = -1.5, x1 = 1.5;
         y0 = -1.5, y1 = 1.5;
         range = x1 - x0;
@@ -70,6 +71,7 @@ function keyPressed() {
     }
 
     if (keyCode === 78) {
+        // Pressing 'N' key increase max iterations
         niter *= 1.5;
         background(255);
         drawMandelbrot(x0, x1, y0, y1);
@@ -78,6 +80,7 @@ function keyPressed() {
     }
 
     if (keyCode === 77) {
+        // Pressing 'M' key decreases max iterations
         niter *= 0.5;
         background(255);
         drawMandelbrot(x0, x1, y0, y1);
@@ -86,6 +89,7 @@ function keyPressed() {
     }
 
     if (keyCode === 66) {
+        // Pressing 'B' resets max iterations
         niter = niter_intial;
         background(255);
         drawMandelbrot(x0, x1, y0, y1);
