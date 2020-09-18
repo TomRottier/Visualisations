@@ -1,4 +1,4 @@
-const niter = 30;
+const niter = 100;
 let cx,cy;
 const xmin = -1.5, ymin = -1.5;
 const xmax = 1.5, ymax = 1.5;
@@ -84,16 +84,18 @@ let canvas2 = function(p) {
         // let cy = p.map(mouseY, 0, imgy, -2, 2);
         // print(cx,cy);
     
-    
+    p.map2 = function(x,x0,x1,y0,y1) {
+        return y0 + ((y1-y0) / (x1-x0)) * (x-x0);
+    }
         p.loadPixels();
         for (let i = 0; i < imgx; i++) {
-            let x0 = p.map(i, 0, imgx, xmin, xmax);
+            let x0 = p.map2(i, 0, imgx, xmin, xmax);
             for (let j = 0; j < imgy; j++) {
-                let y0 = p.map(j, 0, imgy, ymin, ymax);
+                let y0 = p.map2(j, 0, imgy, ymin, ymax);
                 let prnt = p.julia([x0,y0], [cx,cy], niter);
                 // if (prnt[0] == 1) {
                     let idx = (i+j*imgx)*4.0;
-                    let col = p.map(prnt[1], 0, niter, 255, 0);
+                    let col = p.map2(prnt[1], 0, niter, 255, 0);
                     p.pixels[idx]   = col;
                     p.pixels[idx+1] = col;
                     p.pixels[idx+2] = col;
