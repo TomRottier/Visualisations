@@ -14,21 +14,24 @@ let canvas1 = function(p) {
     };
 
     p.draw = function() {
-        cx = p.map(p.mouseX, 0, p.width, xmin, xmax);
-        cy = p.map(p.mouseY, 0, p.height, ymin,ymax);
+        cx = p.map2(p.mouseX, 0, p.width, xmin, xmax);
+        cy = p.map2(p.mouseY, 0, p.height, ymin,ymax);
     }
 
+    p.map2 = function(x,x0,x1,y0,y1) {
+        return y0 + ((y1-y0) / (x1-x0)) * (x-x0);
+    }
     p.drawMandelbrot = function(imgx, imgy) {
 
         p.loadPixels();
         for (let i = 0; i < imgx; i++) {
-            let c1 = p.map(i, 0, imgx, xmin, xmax);
+            let c1 = p.map2(i, 0, imgx, xmin, xmax);
             for (let j = 0; j < imgy; j++) {
-                let c2 = p.map(j, 0, imgy, ymin, ymax);
+                let c2 = p.map2(j, 0, imgy, ymin, ymax);
                 let prnt = p.mandelbrot([c1,c2], niter);
                 // if (prnt[0] == 1) {
                     let idx = (i+j*imgx)*4.0;
-                    let col = p.map(prnt[1], 0, niter, 255, 0);
+                    let col = p.map2(prnt[1], 0, niter, 255, 0);
                     p.pixels[idx]   = col;
                     p.pixels[idx+1] = col;
                     p.pixels[idx+2] = col;
