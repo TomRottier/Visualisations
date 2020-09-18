@@ -2,11 +2,12 @@ const niter = 100;
 let cx,cy;
 const xmin = -1.5, ymin = -1.5;
 const xmax = 1.5, ymax = 1.5;
-const canvW = canvH = 500; 
+const canvW = canvH = window.innerHeight - 350;
 
 let canvas1 = function(p) {
 
     p.setup = function() {
+
         p.createCanvas(canvW,canvH);
         p.pixelDensity(1);
         p.background(255);
@@ -31,7 +32,7 @@ let canvas1 = function(p) {
                 let prnt = p.mandelbrot([c1,c2], niter);
                 // if (prnt[0] == 1) {
                     let idx = (i+j*imgx)*4.0;
-                    let col = p.map2(prnt[1], 0, niter, 255, 0);
+                    let col = p.map2(prnt[1], 1, niter, 255, 0);
                     p.pixels[idx]   = col;
                     p.pixels[idx+1] = col;
                     p.pixels[idx+2] = col;

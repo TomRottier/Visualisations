@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="lib\p5.js"></script>
+        <script src="scripts\mandelbrot_zoom.js"></script>
+
+        <style>
+            p {
+                font-family: Arial, sans-serif;
+            }
+            
+            #canvas {
+                float: left;
+            }
+
+            #controls {
+                float: right;
+                position: relative;
+                left: -90px;
+                font-family: Arial, sans-serif;
+                border-left-width: thick;
+            }
+
+        </style>
+    </head>
+
+    <body oncontextmenu="return false;">
+        <div id="canvas">
+          <!-- p5 canvas here -->
+        </div>
+        <div id="controls">
+            <h2> Controls:</h2>
+            <p>
+               <strong>Zoom in:</strong>                    left-click <br> 
+               <strong>Zoom out:</strong>                   right-click <br>
+               <strong>Increase max iterations:</strong>    n <br> 
+               <strong>Decrease max iterations:</strong>    m <br> 
+               <strong>Reset max iterations:</strong>       b <br> 
+               <strong>Reset image:</strong>                r <br> 
+            </p>
+        </div>
+    </body>
+</html>
