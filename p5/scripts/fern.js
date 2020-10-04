@@ -16,24 +16,26 @@ function setup() {
 }
 
 function draw() {
-    q = random();
+    for (let i = 0; i < 100; i++) {
+        q = random();
 
-    if (q < 0.01) {
-        [m,n] = transform(m,n,f1);
+        if (q < 0.01) {
+            [m,n] = transform(m,n,f1);
 
-    } else if (q < 0.86) {
-        [m,n] = transform(m,n,f2);
+        } else if (q < 0.86) {
+            [m,n] = transform(m,n,f2);
 
-    } else if (q < 0.92) {
-        [m,n] = transform(m,n,f3);
+        } else if (q < 0.92) {
+            [m,n] = transform(m,n,f3);
 
-    } else {
-        [m,n] = transform(m,n,f4);
+        } else {
+            [m,n] = transform(m,n,f4);
 
+        }
+        x = map2(m,x0,x1,0,width);
+        y = map2(n,y0,y1,height,0);
+        ellipse(x,y,rad);
     }
-    x = map2(m,x0,x1,0,width);
-    y = map2(n,y0,y1,height,0);
-    ellipse(x,y,rad);
 }
 
 function transform(x0,y0,fn){
