@@ -10,7 +10,7 @@ let f3 = { a: 0.20, b: -0.26, c: 0.23, d: 0.22, e: 0.00, f: 1.60 };
 let f4 = { a: -0.15, b: 0.28, c: 0.26, d: 0.24, e: 0.00, f: 0.44 };
 
 function setup() {
-    createCanvas(window.innerHeight, window.innerHeight);
+    createCanvas(window.innerHeight - 100, window.innerHeight - 100);
     background(255);
     // stroke(0,255,0);
 }
