@@ -1,17 +1,26 @@
+let x = 50;
+let y = 50;
+let sign = 1;
 
 function setup() {
     createCanvas(400, 400);
     background(255);
-
-    // Slider
-    ang_slider = createSlider(0, 90, 70);
-    len_slider = createSlider(0, 300, 200);
 }
 
 function draw() {
     background(255);
-    // ang_slider.changed(drawModel);
-    drawModel();
+    // drawModel();
+    ellipse(x, y, 20, 20)
+    x += 0.001
+    y += 1 * sign;
+
+    if (y > height - 100) {
+        sign *= -1;
+    }
+
+    if (y < 0) {
+        sign *= -1;
+    }
 }
 
 function drawModel() {
@@ -20,12 +29,12 @@ function drawModel() {
     ground.draw();
 
     // Leg and point mass parameters
-    // const angle = radians(70);      // Relative to left horizontal
-    // const length = 200;             // Leg length
+    const angle = radians(70);      // Relative to left horizontal
+    const length = 200;             // Leg length
     const radius = 20;              // Point mass radius
     // Sliders
-    const angle = radians(ang_slider.value());
-    const length = len_slider.value();
+    // const angle = radians(ang_slider.value());
+    // const length = len_slider.value();
 
     // Leg positions
     const xbase = width / 2;

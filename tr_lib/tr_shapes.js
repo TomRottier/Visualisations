@@ -1,26 +1,24 @@
 // Extra drawing objects built on p5.js library
 // Mainly for free-body diagrams
 // Contains:
-//      - Ground: draws ground object at 9/10 of height
+//      - Ground: draws ground object at an offset from height
 //      - Spring: draws spring between two points with specified width and number of coils
 //      - Vector: draws vector (arrow) at a point with specified magnitude and direction
 // 
 // Tom Rottier 2020
 
 class Ground {
-    constructor(canvasx, canvasy) {
-        this.x = canvasx;
-        this.y = canvasy;
-
+    constructor(offset = 0.9) {
         // Offset from bottom of canvas
-        this.offset = this.y / 10;
+        this.offset = offset;
+        this.y = height * offset;
     }
     draw(col = 0) {
 
         // Draw ground line
         stroke(col);
         strokeWeight(2);
-        line(0, this.y - this.offset, this.x, this.y - this.offset);
+        line(0, this.y, width, this.y);
 
         // Draw other lines
         strokeWeight(1);
@@ -28,10 +26,10 @@ class Ground {
         const lineL = 15;
         const angle = QUARTER_PI;
         for (let i = 0; i < nlines; i++) {
-            let posx1 = map(i, 0, nlines - 3, 0, this.y);
-            let posy1 = this.y - this.offset;
+            let posx1 = map(i, 0, nlines - 3, 0, width);
+            let posy1 = this.y;
             let posx2 = posx1 - lineL * cos(angle);
-            let posy2 = (this.y - this.offset) + lineL * sin(angle);
+            let posy2 = this.y + lineL * sin(angle);
             line(posx1, posy1, posx2, posy2);
         }
 
@@ -41,11 +39,11 @@ class Ground {
 class Spring {
     constructor(x1, y1, x2, y2, width, Ncoils, offsetT, offsetB) {
         // x1,y1 start of spring, x2,y2 end of spring
-        const angle = atan((y2 - y1) / (x2 - x1));
-        const offsetTx = offsetT * cos(angle);
-        const offsetTy = offsetT * sin(angle);
-        const offsetBx = offsetB * cos(angle);
-        const offsetBy = offsetB * sin(angle);
+        const theta = Math.atan2((y2 - y1), (x2 - x1));
+        const offsetTx = offsetT * cos(theta);
+        const offsetTy = offsetT * sin(theta);
+        const offsetBx = offsetB * cos(theta);
+        const offsetBy = offsetB * sin(theta);
 
         this.x1 = x1 + offsetTx;
         this.y1 = y1 + offsetTy;
@@ -60,8 +58,20 @@ class Spring {
 
     };
 
-    draw(col = 0) {
+    updatePosition(x1, y1, x2, y2) {
+        const theta = Math.atan2((y2 - y1), (x2 - x1));
+        const offsetTx = this.offsetT * cos(theta);
+        const offsetTy = this.offsetT * sin(theta);
+        const offsetBx = this.offsetB * cos(theta);
+        const offsetBy = this.offsetB * sin(theta);
 
+        this.x1 = x1 + offsetTx;
+        this.y1 = y1 + offsetTy;
+        this.x2 = x2 - offsetBx;
+        this.y2 = y2 - offsetBy;
+    }
+
+    draw(col = 0) {
         // Copied from https://stackoverflow.com/questions/35777581/drawing-a-zigzag-spring-in-java
         let inv = 0.25 / this.Ncoils;
         let dx = (this.x2 - this.x1) * inv,
