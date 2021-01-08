@@ -22,7 +22,8 @@ class Ground {
 
         // Draw other lines
         strokeWeight(1);
-        const nlines = 100;
+        const lineDensity = 4;  // Number of pixels between lines
+        let nlines = windowWidth / lineDensity;
         const lineL = 15;
         const angle = QUARTER_PI;
         for (let i = 0; i < nlines; i++) {
