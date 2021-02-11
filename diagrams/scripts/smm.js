@@ -1,36 +1,21 @@
-let x = 50;
-let y = 50;
-let sign = 1;
 
 function setup() {
-    createCanvas(400, 400);
+    const c = createCanvas(400, 400);
     background(255);
+    drawModel(60, 200);
+    drawModel(90, 160);
+    drawModel(120, 200);
+    saveCanvas(c, 'SpringMassModel_400', 'png');
 }
 
-function draw() {
-    background(255);
-    // drawModel();
-    ellipse(x, y, 20, 20)
-    x += 0.001
-    y += 1 * sign;
-
-    if (y > height - 100) {
-        sign *= -1;
-    }
-
-    if (y < 0) {
-        sign *= -1;
-    }
-}
-
-function drawModel() {
+function drawModel(_ang, _length) {
     // Ground
-    const ground = new Ground(width, height);
+    const ground = new Ground();
     ground.draw();
 
     // Leg and point mass parameters
-    const angle = radians(70);      // Relative to left horizontal
-    const length = 200;             // Leg length
+    const angle = radians(_ang);      // Relative to left horizontal
+    const length = _length;             // Leg length
     const radius = 20;              // Point mass radius
     // Sliders
     // const angle = radians(ang_slider.value());
@@ -63,7 +48,7 @@ function drawModel() {
     spring_force = new Vector(xbase, ybase, 120, 3 * HALF_PI + angle);
     weight = new Vector(10, height / 2, 50, -PI);
     strokeWeight(3);
-    spring_force.draw();
+    // spring_force.draw();
     weight.draw();
 
     // Base
