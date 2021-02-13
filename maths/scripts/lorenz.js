@@ -3,38 +3,35 @@ let y = 0.1;
 let z = 0.1;
 
 let dx, dy, dz;
-const sig = 10, rho = 28, bet = 8.0 / 3.0;
-const dt = 0.01;
+let px, py;
+const sig = 10, rho = 28, beta = 8.0 / 3.0;
+const dt = 0.001;
 
 function setup() {
-    const h = windowHeight - 100;
-    createCanvas(h, h, WEBGL);
+    createCanvas(400, 400);
     pixelDensity(1);
-    background(255);
-    translate(x, y, z);
-    camera(0, 0, (height) / tan(PI * 30.0 / 180.0), 0, 0, 0, 0, 1, 0);
-    rotateY(PI / 4);
 }
 
 function draw() {
-    // Update derivatives
-    derivative(x, y, z);
+    // translate(width / 2, height / 2);
+    for (let i = 0; i < 100; i++) {
+        px = map(x, -30, 20, 0, width);
+        py = map(y, -30, 30, 0, height);
+        point(px, py);
+        update();
 
-    // Integrate;
+    }
+    // update();
+    print(x, y, z);
+}
+
+function update() {
+    dx = sig * (y - x);
+    dy = x * (rho - z) - y;
+    dz = x * y - beta * z;
+
     x += dx * dt;
     y += dy * dt;
     z += dz * dt;
 
-    // Plot
-    // scale(5);
-    translate(dx, dy, dz)
-    sphere(1);
-    // console.log(x,y,z);
-
-}
-
-function derivative(x, y, z) {
-    dx = sig * (y - x);
-    dy = x * (rho - z) - y;
-    dz = x * y - bet * z;
 }
